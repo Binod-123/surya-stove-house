@@ -21,7 +21,7 @@ function registerUser($name, $email, $password) {
         $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         $stmt->execute([htmlspecialchars($name), htmlspecialchars($email), $hash]);
         
-        echo "Registration successful!";
+        $msg= "Registration successful!";
     } catch (Exception $e) {
         // Store the error message in the session
         $_SESSION['errorMessage'] = $e->getMessage();
