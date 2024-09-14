@@ -228,7 +228,7 @@ try {
 $(document).on('click', '.order-id, .view-order', function() {
     
     var orderId = $(this).data('id');
-    alert(orderId);
+   
     $.ajax({
         url: '../order_ajax.php', 
         method: 'GET',
