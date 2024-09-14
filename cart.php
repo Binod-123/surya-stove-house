@@ -1,11 +1,11 @@
 <?php 
-include("includes/functions.php");
+
  include("header.php");
  ?>
 
 <!--breadcrumb area end-->
 <?php if(!empty($_SESSION['product'])){?>
-<form action="" method="POST">
+<form id="mycartForm" action="booking.php" method="POST">
     <div class="container cart-container ">
         <table class="cart-table">
             <thead>
@@ -20,17 +20,15 @@ include("includes/functions.php");
             <tbody>
                 <?php foreach($_SESSION['product'] as $product):?>
                 <tr data-product-id="<?=$product['id']?>">
-                    <td><?=$product['name']?><input type="hidden" name="name[]" id="name" value="<?=$product['name']?>" />
+                    <td><?=$product['name']?>
                     </td>
-                    <td><img class="cart-image" src="images/<?=$product['image']?>" alt="Product 1"> <input
-                            type="hidden" id="image" name="image[]" value="<?=$product['image']?>/>" </td>
+                    <td><img class="cart-image" src="images/<?=$product['image']?>" alt="Product 1">  </td>
                     <td class="quantity-controls">
-                        <button onclick="updateQuantity(-1,this)">-</button>
+                        <button type="button" onclick="updateQuantity(-1,this)">-</button>
                         <input type="text" name="quantity[]" id="quantity" value="<?=$product['quantity']?>" readonly>
-                        <button onclick="updateQuantity(1,this)">+</button>
+                        <button type="button" onclick="updateQuantity(1,this)">+</button>
                     </td>
-                    <td class="price"><?=$product['price']?><input type="hidden" name="price[]" id="price"
-                            value="<?=$product['price']?>" /></td>
+                    <td class="price"><?=$product['price']?></td>
                     <td class="total-price"><?php echo $product['price']* $product['quantity'];?> </td>
                 </tr>
                 <?php endforeach;?>
@@ -48,11 +46,11 @@ include("includes/functions.php");
                 <span id="gst">00.00</span>
             </div>
             <div class="summary-item total">
-                <span>Total:</span>
+                <span>Grand Total (Including GST):</span>
                 <span id="grandtotal">00.00</span>
             </div>
             <div class="summary-item total">
-                <button type="submit" class="book-now" onclick="bookNow()">Book Now</button>
+                <button type="submit" class="book-now" >Book Now</button>
             </div>
         </div>
 
@@ -75,6 +73,7 @@ include("includes/functions.php");
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script src="js/cart.js"></script>
+<script src="js/main.js"></script>
 <script>
 
 

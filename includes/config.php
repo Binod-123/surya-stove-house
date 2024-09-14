@@ -1,5 +1,5 @@
 <?php 
-session_start();
+
 $dsn = 'mysql:host=localhost;dbname=surya_stove_house_db';
 $username = 'root';
 $password = '';

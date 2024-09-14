@@ -1,5 +1,5 @@
 <?php 
-require 'config.php';
+include 'config.php';
 
 function registerUser($name, $email, $password) {
     global $pdo;
@@ -22,6 +22,7 @@ function registerUser($name, $email, $password) {
         $stmt->execute([htmlspecialchars($name), htmlspecialchars($email), $hash]);
         
         $msg= "Registration successful!";
+        return true;
     } catch (Exception $e) {
         // Store the error message in the session
         $_SESSION['errorMessage'] = $e->getMessage();
@@ -31,6 +32,14 @@ function registerUser($name, $email, $password) {
         exit();
     }
 }
+function authenticateUser($email, $password) {
+    global $pdo;
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user && password_verify($password, $user['password']) ? $user : false;
+}
+
 
 
 ?>

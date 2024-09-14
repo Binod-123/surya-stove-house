@@ -1,5 +1,7 @@
 
-<?php session_start(); include 'includes/functions.php'; ?>
+<?php session_start(); 
+include '../includes/functions.php';
+require_once 'login_check.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,36 +20,30 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Surya Stove House</a>
+            <a class="navbar-brand" href="#">Surya Stove House Admin Panel</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto gap-2">
                     <li class="nav-item rounded">
-                        <a class="nav-link active" aria-current="page" href="index.php"><i class="fas fa-home me-2"></i>Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                     </li>
                     <li class="nav-item rounded">
-                        <a class="nav-link active" aria-current="page" href="support.php"><i class="fas fa-home me-2"></i>support</a>
+                        <a class="nav-link active" aria-current="page" href="users.php">Users</a>
                     </li>
-                    
                     <li class="nav-item rounded">
-                        <a class="nav-link cart_data" href="cart.php" data-cart=""><span class="badge bg-light text-dark cart_count cart-counter">0</span><i class="fas fa-shopping-cart me-2"></i> Cart  </a>
-                       
+                        <a class="nav-link active" aria-current="page" href="orders.php">Orders</a>
                     </li>
-                    <?php 
-                    if (isset($_SESSION['user_id'])) { ?>
+                    <li class="nav-item rounded">
+                        <a class="nav-link active" aria-current="page" href="support_ticket.php">Customer message</a>
+                    </li>
+                   
                     <li class="nav-item rounded">
                         <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
                     </li>
-                    <li class="nav-item rounded">
-                        <a class="nav-link active" aria-current="page" href="orders.php"><i class="fas fa-home me-2"></i>orders</a>
-                    </li>
-                    <?php } else{?>
-                        <li class="nav-item rounded">
-                        <a class="nav-link" href="login.php"><i class="fas fa-sign-out-alt me-2"></i>login</a>
-                    </li>
-                    <?php }?>
+                    
+                   
                 </ul>
             </div>
         </div>

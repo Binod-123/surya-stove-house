@@ -1,7 +1,10 @@
 <?php 
-//session_start();
+session_start();
 require_once 'includes/functions.php';
+if (isset($_GET['redirect'])) {
 
+  $_SESSION['redirect_after_login'] = $_GET['redirect'];
+}
 // Generate a CSRF token if it does not exist
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -12,14 +15,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         $password = $_POST['password'];
-        registerUser($name, $email, $password);
-        header('Location: login.php');
+        $login =registerUser($name, $email, $password);
+        if ($login) {
+          if (isset($_SESSION['redirect_after_login'])&& $_SESSION['redirect_after_login']=='ca') {
+            header("Location: login.php?redirect=ca"); 
+            exit;
+        } else if($_SESSION['redirect_after_login']=='st'){ 
+          header("Location: login.php?redirect=st"); // 
+           
+        } else  {
+            // Default redirect if no specific redirect URL is set
+            header("Location: login.php"); // Replace with your default post-login page
+            exit;
+        }
         exit;
     } else {
         // Token is invalid, handle the error
         $_SESSION['errorMessage'] = "Invalid CSRF token.";
         //echo "Invalid CSRF token.";
     }
+}
 }
 ?>
 <!DOCTYPE html>
@@ -49,14 +64,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto gap-2">
                     <li class="nav-item rounded">
-                        <a class="nav-link active" aria-current="page" href="/"><i class="fas fa-home me-2"></i>Home</a>
+                        <a class="nav-link active" aria-current="page" href="index.php"><i class="fas fa-home me-2"></i>Home</a>
                     </li>
-                    <li class="nav-item rounded">
-                        <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
-                    </li>
-                    <li class="nav-item rounded">
-                        <a class="nav-link" href="/cart"><i class="fas fa-shopping-cart me-2"></i>Cart</a>
-                    </li>
+                    
+                    
                 </ul>
             </div>
         </div>

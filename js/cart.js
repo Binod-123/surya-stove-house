@@ -5,7 +5,7 @@ function updateCartCount() {
         dataType: 'json',
         success: function (response) {
             $('.cart-counter').text(response.cart_count);
-            console.log(response);
+           
             var cartJson = JSON.stringify(response.cart_product); // Convert cart data to JSON string
             $('.cart_data').attr('data-cart', cartJson);
         },
@@ -32,10 +32,10 @@ function addToCart() {
         success: function (response) {
             // alert(response);
             if (response.success) {
-                alert(response.message);
+              //  alert(response.message);
                 updateCartCount();
             } else {
-                alert(response.message);
+               // alert(response.message);
             }
             //console.log(response.product);
         },
@@ -45,19 +45,20 @@ function addToCart() {
     });
 }
 function updateQuantity(change, button) {
+   // alert('Quantity');
     const row = $(button).closest('tr');
     const productId_2 = row.data('product-id');
     const quantityInput = row.find('input[type="text"]');
 
     let quantity = parseInt(quantityInput.val(), 10) + change;
     if (quantity < 1) {
-        quantity = 1; // Minimum quantity should be 1
+        quantity = 1; 
     }
 
-    // Update quantity in the input box
+   
     quantityInput.val(quantity);
 
-    // Send AJAX request to update the quantity in session
+    
     $.ajax({
         url: 'cart_ajax.php',
         method: 'POST',
